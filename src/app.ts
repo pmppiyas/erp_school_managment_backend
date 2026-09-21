@@ -12,9 +12,28 @@ import { adminSeed } from './app/utils/adminSeed';
 const app = express();
 
 app.use(cookieParser());
+
+const allowedOrigins = [
+  env.FRONTEND_LINK,
+  'https://dm-academy.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:3001',
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [env.FRONTEND_LINK, 'http://localhost:3000'],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.includes('localhost')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
@@ -30,16 +49,17 @@ app.get('/', (_req, res) => {
 
 app.use('/api/v1', router);
 
-cron.schedule('0 8 * * *', () => {
-  AttendServices.generateDailyAttendance();
+// Only schedule cron if not in serverless runtime
+if (!process.env.VERCEL) {
+  cron.schedule('0 8 * * *', () => {
+    AttendServices.generateDailyAttendance();
+  });
+}
+
+// Safely invoke adminSeed in background without blocking startup
+adminSeed().catch((err) => {
+  console.error('Error during adminSeed:', err);
 });
-
-// setInterval(() => {
-//   AttendServices.generateDailyAttendance();
-//   console.log('RUn');
-// }, 5 * 1000);
-
-adminSeed();
 
 app.use((req, res, next) => {
   res.status(404).json({

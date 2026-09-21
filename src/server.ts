@@ -8,9 +8,10 @@ let server: Server | null = null;
 
 async function startServer() {
   try {
+    const port = process.env.PORT || 5000;
     server = http.createServer(app);
-    server.listen(process.env.PORT, () => {
-      console.log(`🚀 Server is running on port ${process.env.PORT}`);
+    server.listen(port, () => {
+      console.log(`🚀 Server is running on port ${port}`);
     });
 
     handleProcessEvents();
@@ -30,13 +31,6 @@ async function gracefulShutdown(signal: string) {
   if (server) {
     server.close(async () => {
       console.log('✅ HTTP server closed.');
-
-      try {
-        console.log('Server shutdown complete.');
-      } catch (error) {
-        console.error('❌ Error during shutdown:', error);
-      }
-
       process.exit(0);
     });
   } else {
@@ -53,14 +47,16 @@ function handleProcessEvents() {
 
   process.on('uncaughtException', (error) => {
     console.error('💥 Uncaught Exception:', error);
-    gracefulShutdown('uncaughtException');
   });
 
   process.on('unhandledRejection', (reason) => {
     console.error('💥 Unhandled Rejection:', reason);
-    gracefulShutdown('unhandledRejection');
   });
 }
 
-// Start the application
-startServer();
+// Start local server if not on serverless environment (e.g. Vercel)
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
