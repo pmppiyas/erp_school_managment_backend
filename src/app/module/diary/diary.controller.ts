@@ -19,7 +19,7 @@ const createDiary = catchAsync(
 
 const updateDiary = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await DiaryServices.updateDiary(req.params.id, req.body);
+    const result = await DiaryServices.updateDiary(req.params.id as string, req.body);
     console.log(result);
     sendResponse(res, {
       success: true,
@@ -32,7 +32,7 @@ const updateDiary = catchAsync(
 
 const deleteDiary = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await DiaryServices.deleteDiary(req.params.id);
+    const result = await DiaryServices.deleteDiary(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -51,7 +51,7 @@ const readDiary = catchAsync(
 
     const date = (req.query.date as string) || bdToday;
 
-    const result = await DiaryServices.readDiary(req.params.id, date);
+    const result = await DiaryServices.readDiary(req.params.id as string, date);
 
     sendResponse(res, {
       success: true,

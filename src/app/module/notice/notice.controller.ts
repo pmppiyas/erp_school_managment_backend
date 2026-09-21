@@ -35,7 +35,7 @@ const getNotices = catchAsync(
 
 const getOneNotice = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await NoticeServices.getOneNotice(req.params.id);
+    const result = await NoticeServices.getOneNotice(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -48,7 +48,7 @@ const getOneNotice = catchAsync(
 
 const updateNotice = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await NoticeServices.updateNotice(req.params.id, req.body);
+    const result = await NoticeServices.updateNotice(req.params.id as string, req.body);
 
     sendResponse(res, {
       success: true,
@@ -61,7 +61,7 @@ const updateNotice = catchAsync(
 
 const deleteNotice = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await NoticeServices.deleteNotice(req.params.id);
+    const result = await NoticeServices.deleteNotice(req.params.id as string);
 
     sendResponse(res, {
       success: true,

@@ -32,7 +32,7 @@ const getClasses = catchAsync(
 
 const deleteClass = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await ClassServices.deleteClass(req.params.id);
+    const result = await ClassServices.deleteClass(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -45,7 +45,7 @@ const deleteClass = catchAsync(
 
 const editClass = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await ClassServices.editClass(req.params.id, req.body.name);
+    const result = await ClassServices.editClass(req.params.id as string, req.body.name);
 
     sendResponse(res, {
       success: true,
@@ -84,7 +84,7 @@ const getClassTime = catchAsync(
 
 const deleteClassTime = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await ClassServices.deleteClassTime(req.params.id);
+    const result = await ClassServices.deleteClassTime(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -97,7 +97,7 @@ const deleteClassTime = catchAsync(
 
 const updateClassTime = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await ClassServices.updateClassTime(req.params.id, req.body);
+    const result = await ClassServices.updateClassTime(req.params.id as string, req.body);
 
     sendResponse(res, {
       success: true,

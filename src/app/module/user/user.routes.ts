@@ -10,7 +10,7 @@ import {
   createTeacherZodSchema,
   userStatusChangeValidation,
 } from './user.validation';
-import { validateRequest } from '@/middleware/validateRequest';
+import { validateRequest } from '../../middleware/validateRequest';
 
 const router = Router();
 

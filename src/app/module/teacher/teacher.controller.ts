@@ -19,7 +19,7 @@ const getAllTeachers = catchAsync(
 
 const deleteTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await TeacherServices.deleteTeacher(req.params.id);
+    const result = await TeacherServices.deleteTeacher(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -32,7 +32,10 @@ const deleteTeacher = catchAsync(
 
 const updateTeacher = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await TeacherServices.updateTeacher(req.params.id, req.body);
+    const result = await TeacherServices.updateTeacher(
+      req.params.id as string,
+      req.body
+    );
 
     sendResponse(res, {
       success: true,
@@ -45,7 +48,7 @@ const updateTeacher = catchAsync(
 
 const getTeacherById = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await TeacherServices.getById(req.params.id);
+    const result = await TeacherServices.getById(req.params.id as string);
 
     sendResponse(res, {
       success: true,

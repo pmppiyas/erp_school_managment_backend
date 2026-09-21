@@ -49,7 +49,7 @@ const mySchedules = catchAsync(
 
 const getScheduleByDay = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await ScheduleServices.getScheduleByDay(req.params.day);
+    const result = await ScheduleServices.getScheduleByDay(req.params.day as string);
 
     sendResponse(res, {
       success: true,
@@ -64,7 +64,7 @@ const getStudentRoutine = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await ScheduleServices.getStudentRoutine(
       req.user?.id as string,
-      req.params.day
+      req.params.day as string
     );
 
     sendResponse(res, {

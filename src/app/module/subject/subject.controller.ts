@@ -19,7 +19,7 @@ const createSubject = catchAsync(
 
 const getAllSubjects = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await SubjectServices.getAllSubjects(req.params.id);
+    const result = await SubjectServices.getAllSubjects(req.params.id as string);
 
     sendResponse(res, {
       success: true,
@@ -32,7 +32,7 @@ const getAllSubjects = catchAsync(
 
 const editSubject = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await SubjectServices.editSubject(req.params.id, req.body);
+    const result = await SubjectServices.editSubject(req.params.id as string, req.body);
 
     sendResponse(res, {
       success: true,
@@ -45,7 +45,7 @@ const editSubject = catchAsync(
 
 const deleteSubject = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await SubjectServices.deleteSubject(req.params.id);
+    const result = await SubjectServices.deleteSubject(req.params.id as string);
 
     sendResponse(res, {
       success: true,

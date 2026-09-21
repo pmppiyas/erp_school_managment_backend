@@ -6,7 +6,7 @@ import { MetaServices } from './meta.services';
 
 const studentMeta = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await MetaServices.studentMeta(req.params.id);
+    const result = await MetaServices.studentMeta(req.params.id as string);
     sendResponse(res, {
       success: true,
       statusCode: StatusCodes.OK,
@@ -18,7 +18,7 @@ const studentMeta = catchAsync(
 
 const teacherMeta = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await MetaServices.teacherMeta(req.params.id);
+    const result = await MetaServices.teacherMeta(req.params.id as string);
     sendResponse(res, {
       success: true,
       statusCode: StatusCodes.OK,

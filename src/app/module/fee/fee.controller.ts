@@ -46,7 +46,7 @@ const myFee = catchAsync(
 const paidFees = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await FeeServices.paidFees({
-      studentId: req.params.id,
+      studentId: req.params.id as string,
       year: Number(req.query.year),
     });
     sendResponse(res, {
@@ -74,7 +74,7 @@ const createFeeType = catchAsync(
 
 const deleteFeeType = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await FeeServices.deleteFeeType(req.params.id);
+    const result = await FeeServices.deleteFeeType(req.params.id as string);
     sendResponse(res, {
       success: true,
       statusCode: StatusCodes.OK,

@@ -42,7 +42,7 @@ const addResult = catchAsync(
 const getAllResults = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await ResultServices.getAllResults(
-      req.params.id,
+      req.params.id as string,
       req.query.term as string,
       Number(req.query.year)
     );
@@ -60,7 +60,7 @@ const getMyResults = catchAsync(
     const result = await ResultServices.myResults(
       req.user?.email as string,
       Number(req.params.year),
-      req.params.term
+      req.params.term as string
     );
     sendResponse(res, {
       success: true,
@@ -74,7 +74,7 @@ const getMyResults = catchAsync(
 const updateResult = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await ResultServices.updateResult(
-      req.params.id,
+      req.params.id as string,
       req.body.marks
     );
     sendResponse(res, {

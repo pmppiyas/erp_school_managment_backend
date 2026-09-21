@@ -7,7 +7,7 @@ import { ISlot } from './schedule.interface';
 import { tr } from 'zod/locales';
 
 const assignClassSchedule = async (req: Request) => {
-  const { classId } = req.params;
+  const classId = req.params.classId as string;
   const { dayOfWeek, slots }: { dayOfWeek: string; slots: ISlot[] } = req.body;
 
   const classTimeIds = slots.map((s) => s.classTimeId);

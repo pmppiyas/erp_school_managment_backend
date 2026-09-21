@@ -61,8 +61,8 @@ const createTeacher = catchAsync(
 const changeUserStatus = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserServices.changeUserStatus(
-      req.params.id,
-      req.params.status.toUpperCase() as UserStatus
+      req.params.id as string,
+      (req.params.status as string).toUpperCase() as UserStatus
     );
 
     sendResponse(res, {

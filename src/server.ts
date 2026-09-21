@@ -10,7 +10,7 @@ async function startServer() {
   try {
     const port = process.env.PORT || 5000;
     server = http.createServer(app);
-    server.listen(port, () => {
+    server.listen(Number(port), '0.0.0.0', () => {
       console.log(`🚀 Server is running on port ${port}`);
     });
 

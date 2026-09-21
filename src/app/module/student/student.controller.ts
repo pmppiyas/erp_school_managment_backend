@@ -29,7 +29,7 @@ const allStudents = catchAsync(
 
 const deleteStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await StudentServices.deleteStudent(req.params.id);
+    const result = await StudentServices.deleteStudent(req.params.id as string);
     sendResponse(res, {
       success: true,
       statusCode: StatusCodes.OK,
@@ -42,7 +42,7 @@ const deleteStudent = catchAsync(
 const updateStudent = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await StudentServices.updateStudent(
-      req.params.id,
+      req.params.id as string,
       req?.user as IUser,
       req.body
     );
@@ -57,7 +57,7 @@ const updateStudent = catchAsync(
 
 const getById = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await StudentServices.getById(req.params.id);
+    const result = await StudentServices.getById(req.params.id as string);
     sendResponse(res, {
       success: true,
       statusCode: StatusCodes.OK,

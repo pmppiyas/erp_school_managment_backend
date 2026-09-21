@@ -3,14 +3,15 @@ import prisma from "../../config/prisma";
 import { AppError } from "../../utils/appError";
 
 const createNotice = async (
-  payload: { title: string; message: string; pinned: false },
+  payload: { title: string; message: string; pinned?: boolean; postBy?: string },
   userId: string
 ) => {
   return await prisma.notice.create({
     data: {
       title: payload.title,
       message: payload.message,
-      pinned: payload.pinned!,
+      pinned: payload.pinned ?? false,
+      postBy: payload.postBy || 'Admin',
       createdBy: userId,
     },
   });
